@@ -7,6 +7,7 @@ export const getTodosIds = async () => {
     
     try{
         const response = await axiosInstance.get('todos');
+        // console.log('fetched ids:', response.data.map((todo) => todo.id));
         return response.data.map((todo) => todo.id)
     } catch (error) {
         console.error('failed to fetch todos:', error);
