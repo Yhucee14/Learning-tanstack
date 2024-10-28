@@ -24,3 +24,14 @@ export const getTodo = async (id) => {
         return {};
     }
 }
+
+export const createTodo = async (data) => {
+    try {
+        const create = await axiosInstance.post("todos", data)
+        return create.data
+    } catch (error){
+        console.error('failed to create todo:', error);
+        return {};
+    }
+
+}
