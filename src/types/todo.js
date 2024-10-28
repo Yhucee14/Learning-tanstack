@@ -7,7 +7,7 @@
  */
 
 /** @type {Todo[]} */
-const todos = [
+export const todos = [
   {
     checked: true,
     title: "Sample Todo",

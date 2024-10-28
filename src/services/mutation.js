@@ -1,8 +1,11 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createTodo } from "./api";
 
 
 export function useCreateTodo() {
+    const queryClient = useQueryClient();
+
+
     return useMutation({
         mutationFn: ((data) => createTodo(data)),
 
@@ -15,7 +18,8 @@ export function useCreateTodo() {
         },
 
         onSuccess: () => {
-            console.log('succcess')
+            console.log('succcess');
+            queryClient.invalidateQueries(['todos']);
         },
 
         onSettled: () => {
