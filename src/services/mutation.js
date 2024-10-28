@@ -19,11 +19,16 @@ export function useCreateTodo() {
 
         onSuccess: () => {
             console.log('succcess');
-            queryClient.invalidateQueries(['todos']);
+           
         },
 
-        onSettled: () => {
-            console.log('settled')
+        onSettled: async (_, error) => {
+            console.log('settled');
+            if(error) {
+                console.log(error);
+            } else {
+                await queryClient.invalidateQueries({queryKey: ['todos']}); 
+            }
         }
     })
 }

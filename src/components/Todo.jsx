@@ -23,7 +23,11 @@ const Todo = () => {
         <br />
         <input placeholder="Description" {...register("description")} />
         <br />
-        <input type="submit" />
+        <input
+          type="submit"
+          disabled={createTodoMutation.isPending}
+          value={createTodoMutation.isPending ? "creating..." : "create todo"}
+        />
       </form>
 
       <ul>
