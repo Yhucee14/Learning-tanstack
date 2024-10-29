@@ -1,3 +1,4 @@
+import { useQueryClient } from "@tanstack/react-query";
 import axios from "axios"
 
 const BASE_URL = 'http://localhost:8000'
@@ -34,4 +35,14 @@ export const createTodo = async (data) => {
         return {};
     }
 
+}
+
+export const updateTodo = async (data) => {
+    try{
+        const update = await axiosInstance.put(`todos/${data.id}`, data);
+        return update.data
+    } catch (error){
+        console.error('failed to update todo:', error);
+        return {};
+    }
 }
