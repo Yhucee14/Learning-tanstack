@@ -46,3 +46,12 @@ export const updateTodo = async (data) => {
         return {};
     }
 }
+
+export const deleteTodo = async (id) => {
+    try {
+        const deleteConstant = await axiosInstance.delete(`todos/${id}`);
+        
+    } catch (error) {
+        console.error('failed to delete todo:', error)
+    }
+}

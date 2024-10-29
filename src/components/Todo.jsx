@@ -1,6 +1,10 @@
 import React from "react";
 import { useTodos, useTodosIds } from "../services/queries";
-import { useCreateTodo, useUpdateTodo } from "../services/mutation";
+import {
+  useCreateTodo,
+  useDeleteTodo,
+  useUpdateTodo,
+} from "../services/mutation";
 import { useForm } from "react-hook-form";
 
 const Todo = () => {
@@ -9,6 +13,7 @@ const Todo = () => {
 
   const createTodoMutation = useCreateTodo();
   const updateTodoMutation = useUpdateTodo();
+  const deleteTodoMutation = useDeleteTodo();
 
   const handleCreateTodoSubmit = (data) => {
     createTodoMutation.mutate(data);
@@ -18,6 +23,10 @@ const Todo = () => {
     if (data) {
       updateTodoMutation.mutate({ ...data, checked: true });
     }
+  };
+
+  const handleDeleteTodo = (id) => {
+    deleteTodoMutation.mutate(id);
   };
 
   const { register, handleSubmit } = useForm();
@@ -53,6 +62,8 @@ const Todo = () => {
               >
                 {data?.checked ? "Done" : "Mark as done"}
               </button>
+
+              <button onClick={() => handleDeleteTodo(data?.id)}>Delete</button>
             </div>
           </li>
         ))}
