@@ -55,3 +55,11 @@ export const deleteTodo = async (id) => {
         console.error('failed to delete todo:', error)
     }
 }
+
+export const getProjectsFunction = async ({pageParams}) => {
+    try {
+        const getProjects = await axiosInstance.get(`projects/${id}`)
+    } catch (error) {
+        console.error('Failed to get projects:', error)
+    }
+}

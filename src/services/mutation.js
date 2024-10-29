@@ -41,12 +41,12 @@ export function useUpdateTodo() {
         console.log(error);
       } else {
         try {
-            await queryclient.invalidateQueries({ queryKey: ["todos"] });
-        await queryclient.invalidateQueries({
-          queryKey: ["todo", { id: variables.id }],
-        });
+          await queryclient.invalidateQueries({ queryKey: ["todos"] });
+          await queryclient.invalidateQueries({
+            queryKey: ["todo", { id: variables.id }],
+          });
         } catch (invalidateError) {
-            console.log('Error invalidating queries:', invalidateError)
+          console.log("Error invalidating queries:", invalidateError);
         }
       }
     },
@@ -54,26 +54,25 @@ export function useUpdateTodo() {
 }
 
 export function useDeleteTodo() {
-    const queryClient = useQueryClient();
+  const queryClient = useQueryClient();
 
-    return useMutation({
-        mutationFn: (id) => deleteTodo(id),
+  return useMutation({
+    mutationFn: (id) => deleteTodo(id),
 
-        onSuccess: () => {
-            console.log('deleted successfully');
-        },
+    onSuccess: () => {
+      console.log("deleted successfully");
+    },
 
-onSettled: async (_, error) => {
- if (error) {
-    console.log(error);
- } else {
-    try {
-        await queryClient.invalidateQueries({queryKey: ['todos']})
-    } catch (invalidateError) {
-        console.log(invalidateError)
-    }
- }
+    onSettled: async (_, error) => {
+      if (error) {
+        console.log(error);
+      } else {
+        try {
+          await queryClient.invalidateQueries({ queryKey: ["todos"] });
+        } catch (invalidateError) {
+          console.log(invalidateError);
+        }
+      }
+    },
+  });
 }
-    })
-}
-
