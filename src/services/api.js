@@ -70,3 +70,21 @@ export const getProjectsFunction = async (page = 1) => {
     console.error("Failed to get projects:", error);
   }
 };
+
+export const getProductsFunction = async (pageParams) => {
+    try {
+        const getProducts = await axiosInstance.get(`products?_pages=${pageParams + 1}&_ limit=3`);
+        return getProducts.data
+} catch (error) {
+    console.error(error)
+}
+}
+
+export const getProduct = async (id) => {
+    try {
+        const getProduct = await axiosInstance.get(`products/${id}`);
+        return getProduct.data
+} catch (error) {
+    console.error(error)
+}
+}
