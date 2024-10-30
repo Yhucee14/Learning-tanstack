@@ -5,7 +5,7 @@ import { useProjects } from "../services/queries";
 export default function Projects() {
 const [page, setPage] = useState(1);
 
-const {data, isPending, error, isError, isPlaceholderData, isFetching} = useProjects(page)
+const {  data: projectsData, isPending, error, isError, isPlaceholderData, isFetching} = useProjects(page)
 
     return (
         <div>
@@ -15,7 +15,7 @@ const {data, isPending, error, isError, isPlaceholderData, isFetching} = useProj
                 <div>Error: {error.message} </div>
             ) : (
                 <div>
-                    {data.map((project) => (
+                    {data.projectsData.map((project) => (
                         <p key={project.id}>{project.name}</p>
                     ))}
                 </div>
@@ -27,10 +27,10 @@ const {data, isPending, error, isError, isPlaceholderData, isFetching} = useProj
             </button>
 
             <button onClick={() => {
-                if (!isPlaceholderData) {
+                if (!isPlaceholderData && page < projectsData.totalPages) {
                     setPage((old) => old + 1)
                 }
-            }} disabled={isPlaceholderData}>
+            }} disabled={page >= projectsData.totalPages || isPlaceholderData}>
                 Next page
             </button>
             {isFetching ? <span>Loading...</span> : null}
