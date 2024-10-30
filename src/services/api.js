@@ -56,9 +56,10 @@ export const deleteTodo = async (id) => {
     }
 }
 
-export const getProjectsFunction = async ({pageParams}) => {
+export const getProjectsFunction = async (page = 1) => {
     try {
-        const getProjects = await axiosInstance.get(`projects/${id}`)
+        const getProjects = await axiosInstance.get(`projects?_page=${page}&_limit=3`)
+        return getProjects.data
     } catch (error) {
         console.error('Failed to get projects:', error)
     }
