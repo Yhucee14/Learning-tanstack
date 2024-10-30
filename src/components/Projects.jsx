@@ -15,24 +15,24 @@ const {  data: projectsData, isPending, error, isError, isPlaceholderData, isFet
                 <div>Error: {error.message} </div>
             ) : (
                 <div>
-                    {data.projectsData.map((project) => (
+                    {projectsData?.data?.map((project) => (
                         <p key={project.id}>{project.name}</p>
                     ))}
                 </div>
             )}
 
-            <span>Current page: {page} </span>
+            <span>Current page: {page} </span> <br />
             <button onClick={() => setPage((old) => Math.max(old - 1, 1))}>
                 Previous page
             </button>
 
             <button onClick={() => {
-                if (!isPlaceholderData && page < projectsData.totalPages) {
+                if (!isPlaceholderData && page < projectsData?.totalPages || 1) {
                     setPage((old) => old + 1)
                 }
-            }} disabled={page >= projectsData.totalPages || isPlaceholderData}>
+            }} disabled={page >= (projectsData?.totalPages || 1) || isPlaceholderData}>
                 Next page
-            </button>
+            </button> <br />
             {isFetching ? <span>Loading...</span> : null}
         </div>
     )
