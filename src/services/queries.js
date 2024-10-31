@@ -54,5 +54,14 @@ const queryClient = useQueryClient();
 return useQuery({
     queryKey: ['product', {id}],
     queryFn: () => getProduct(id),
+    enabled: !!id,
+    placeholderData: () => {
+        const cachedProducts = queryClient.getQueryData(['products'])?.pages?.flat(2);
+       
+        if (cachedProducts) {
+            return cachedProducts.find((item) => item.id === id);
+        }
+        }
+    
 })
 }
