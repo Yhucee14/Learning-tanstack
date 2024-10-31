@@ -71,17 +71,19 @@ export const getProjectsFunction = async (page = 1) => {
   }
 };
 
-export const getProductsFunction = async (pageParams) => {
+export const getProductsFunction = async (page = 1) => {
   try {
-    const getProducts = await axiosInstance.get(
-      `products?_pages=${pageParams + 1}&_ limit=3`
-    );
+    const response = await axiosInstance.get(`products?_page=${page}&_limit=2`);
+    const totalCount = response.headers["x-total-count"];
+    const totalPages = Math.ceil(totalCount / 2);
+
     return {
-        data: getProducts.data,
-        totalPages: Math.ceil(getProducts.headers['x-total-count' / 2]),
-    }
+      data: response.data,
+      totalPages,
+    };
   } catch (error) {
-    console.error(error);
+    console.error("Failed to get products:", error);
+    return { data: [], totalPages: 0 };
   }
 };
 

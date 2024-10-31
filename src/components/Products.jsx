@@ -12,8 +12,8 @@ export default function Product() {
     <>
       {productsQuery.data?.pages.map((group, index) => (
         <Fragment key={index}>
-          {group.map((product) => (
-            <Fragment key={index}>
+          {group.data.map((product) => (
+            <Fragment key={product.id}>
               <button onClick={() => setSelectedProductId(product.id)}>
                 {product.name}
               </button>
